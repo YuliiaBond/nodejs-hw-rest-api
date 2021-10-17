@@ -1,6 +1,6 @@
 const fs = require('fs/promises')
 const path = require('path')
-// const contacts = require('./contacts.json')
+const contacts = require('./contacts.json')
 
 // const listContacts = async () => {}
 
@@ -19,24 +19,31 @@ const updateContact = async (contacts) => {
   return newContact
 }
 
-async function listContacts() {
-  const data = await fs.readFile(contactsPath)
-  const contacts = JSON.parse(data)
-  return contacts
-}
+const listContacts = async() => contacts
 
-async function getContactById(contactId) {
+// async function listContacts() {
+//   const data = await fs.readFile(contactsPath)
+//   const contacts = JSON.parse(data)
+//   return contacts
+// }
+
+async function getContactById(id) {
   const contacts = await listContacts()
-  const idx = contacts.findIndex(item => item.id === contactId)
+  const idx = contacts.findIndex(item => item.id === id)
+  // const contact = contacts.find(item => item.id === id)
   if (idx === -1) {
     return null
   }
+  // if (!contact) {
+  //   return null
+  // }
   return contacts[idx]
+  // return contact
 };
 
-async function removeContact(contactId) {
+async function removeContact(id) {
   const contacts = await listContacts()
-  const idx = contacts.findIndex(item => item.id === contactId)
+  const idx = contacts.findIndex(item => item.id === id)
   if (idx === -1) {
     return null
   }
@@ -55,10 +62,21 @@ async function addContact(data) {
   return contacts
 };
 
+const updateById = async(id, data) => {
+  const contacts = await listContacts()
+  const idx = contacts.findIndex(item => item.id === id)
+  if (idx === -1) {
+    return null
+  }
+  contacts[idx] = { ...contacts[idx], ...data }
+  await updateContact(contacts)
+  return contacts[idx]
+}
+
 module.exports = {
   listContacts,
   getContactById,
   removeContact,
   addContact,
-  updateContact,
+  updateById,
 }
