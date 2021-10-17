@@ -7,7 +7,7 @@ const contactsOperations = require('../../model/index')
 const joiSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required(),
-  phone: Joi.number().required()
+  phone: Joi.string().required()
 })
 const router = express.Router()
 
@@ -29,7 +29,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const { id } = req.params
-    const contact = await contactsOperations.getContactById(id)
+    const contact = await contactsOperations.getContactById(Number(id))
     if (!contact) {
       throw new NotFound(`Product with id=${id} not found`)
       // const error = new Error(`Product with id=${contactId} not found`)
@@ -75,7 +75,7 @@ router.put('/:id', async (req, res, next) => {
       throw new BadRequest(error.message)
     }
     const { id } = req.params
-    const result = await contactsOperations.updateById(id, req.body)
+    const result = await contactsOperations.updateById(Number(id), req.body)
     if (!result) {
       throw new NotFound(`Product with id=${id} not found`)
     }
@@ -94,7 +94,7 @@ router.put('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   try {
     const { id } = req.params
-    const result = await contactsOperations.removeContact(id)
+    const result = await contactsOperations.removeContact(Number(id))
     if (!result) {
       throw new NotFound(`Product with id=${id} not found`)
     }
