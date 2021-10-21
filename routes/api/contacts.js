@@ -3,7 +3,6 @@ const express = require('express')
 const { controllerWrapper, validation } = require('../../middlewares')
 const { contactSchema } = require('../../schemas')
 const { contacts: ctrl } = require('../../controllers')
-const { validate } = require('../../schemas/contact')
 
 const router = express.Router()
 
