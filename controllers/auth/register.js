@@ -1,5 +1,5 @@
 const { Conflict } = require('http-errors')
-const bcrypt = require('bcryptjs')
+// const bcrypt = require('bcryptjs')
 
 const { User } = require('../../models')
 
@@ -16,14 +16,14 @@ const register = async (req, res) => {
     // return
   }
 
-  //   const newUser = new User({ email })
-  //   // newUser = {email}
-  //   newUser.setPassword(password)
-  //   // newUser = {email, password}
-  //   await newUser.save()
+  const newUser = new User({ email })
+  // newUser = {email}
+  newUser.setPassword(password)
+  // newUser = {email, password}
+  await newUser.save()
 
-  const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
-  await User.create({ email, password: hashPassword })
+  // const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+  // await User.create({ email, password: hashPassword })
 
   res.status(201).json({
     status: 'success',

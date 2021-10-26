@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.post('/register', validation(joiSchema), controllerWrapper(ctrl.register))
 
-router.post('/login', controllerWrapper(ctrl.login))
+router.post('/login', validation(joiSchema), controllerWrapper(ctrl.login))
 
 router.get('/logout', controllerWrapper(ctrl.logout))
 
