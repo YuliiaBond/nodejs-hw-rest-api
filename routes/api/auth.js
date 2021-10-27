@@ -12,7 +12,7 @@ router.post('/login', validation(joiSchema), controllerWrapper(ctrl.login))
 
 router.get('/logout', authenticate, controllerWrapper(ctrl.logout))
 
-router.get('/current', controllerWrapper(ctrl.current))
+router.get('/current', authenticate, controllerWrapper(ctrl.current))
 
 router.patch('/current', authenticate, controllerWrapper(ctrl.subscription))
 
