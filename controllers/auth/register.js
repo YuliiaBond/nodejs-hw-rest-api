@@ -21,7 +21,11 @@ const register = async (req, res) => {
 
   const avatarURL = gravatar.url(email)
   const verifyToken = nanoid()
-  const newUser = new User({ email, avatarURL, verifyToken })
+  const newUser = new User({
+    email,
+    avatarURL,
+    verifyToken
+  })
   // newUser = {email}
   newUser.setPassword(password)
   // newUser = {email, password}
@@ -31,8 +35,8 @@ const register = async (req, res) => {
     to: email,
     subject: 'Подтверждение регистрации на сайте',
     html: `
-        <a target="_blank" 
-            href="http://localhost:3000/api/users/verify/${verifyToken}">Нажмите для подтверждения email</a>
+        <a target='_blank' 
+            href='http://localhost:3000/api/users/verify/${verifyToken}''>Нажмите для подтверждения email</a>
         `
   }
   sendEmail(mail)
