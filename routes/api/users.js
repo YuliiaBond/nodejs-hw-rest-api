@@ -8,5 +8,5 @@ const router = express.Router()
 router.patch('/avatars', authenticate, upload.single('avatar'), controllerWrapper(ctrl.updateAvatar))
 
 module.exports = {
-    router
+  router
 }
