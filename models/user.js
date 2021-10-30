@@ -15,12 +15,16 @@ const userSchema = Schema({
   subscription: {
     type: String,
     enum: ['starter', 'pro', 'business'],
-    default: 'starter'
+    default: 'starter',
   },
   token: {
     type: String,
     default: null,
   },
+  avatarURL: {
+    type: String,
+    required: true,
+  }
 }, { versionKey: false, timestamps: true })
 
 userSchema.methods.setPassword = function(password) {
